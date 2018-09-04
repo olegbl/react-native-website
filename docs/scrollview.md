@@ -439,12 +439,12 @@ Used to manually set the starting scroll offset. The default value is `{x: 0, y:
 
 A floating-point number that determines how quickly the scroll view decelerates after the user lifts their finger. You may also use string shortcuts `"normal"` and `"fast"` which match the underlying iOS settings for `UIScrollViewDecelerationRateNormal` and `UIScrollViewDecelerationRateFast` respectively.
 
-* `'normal'`: 0.998 (the default)
-* `'fast'`: 0.99
+* `'normal'`: 0.998 on iOS, 0.985 on Android (the default)
+* `'fast'`: 0.99 on iOS, 0.9 on Android
 
-| Type                            | Required | Platform |
-| ------------------------------- | -------- | -------- |
-| enum('fast', 'normal'), ,number | No       | iOS      |
+| Type                            | Required |
+| ------------------------------- | -------- |
+| enum('fast', 'normal'), ,number | No       |
 
 ---
 
@@ -548,13 +548,49 @@ When `snapToInterval` is set, `snapToAlignment` will define the relationship of 
 
 ### `snapToInterval`
 
-When set, causes the scroll view to stop at multiples of the value of `snapToInterval`. This can be used for paginating through children that have lengths smaller than the scroll view. Typically used in combination with `snapToAlignment` and `decelerationRate="fast"`. Overrides less configurable `pagingEnabled` prop.
+When set, causes the scroll view to stop at multiples of the value of `snapToInterval`. This can be used for paginating through children that have lengths smaller than the scroll view. Typically used in combination with `snapToAlignment` and `decelerationRate="fast"`.
 
-Note: Vertical snapToInterval is not supported on Android.
+Overrides less configurable `pagingEnabled` prop.
 
 | Type   | Required |
 | ------ | -------- |
 | number | No       |
+
+---
+
+### `snapToOffsets`
+
+When set, causes the scroll view to stop at the defined offsets. This can be used for paginating through variously sized children that have lengths smaller than the scroll view. Typically used in combination with `decelerationRate="fast"`.
+
+Overrides less configurable `pagingEnabled` and `snapToInterval` props.
+
+| Type            | Required |
+| --------------- | -------- |
+| array of number | No       |
+
+---
+
+### `snapToStart`
+
+Use in conjuction with `snapToOffsets`. By default, the beginning of the list counts as a snap offset. Set `snapToStart` to false to disable this behavior and allow the list to scroll freely between its start and the first `snapToOffsets` offset.
+
+The default value is true.
+
+| Type    | Required |
+| ------- | -------- |
+| boolean | No       |
+
+---
+
+### `snapToEnd`
+
+Use in conjuction with `snapToOffsets`. By default, the end of the list counts as a snap offset. Set `snapToEnd` to false to disable this behavior and allow the list to scroll freely between its end and the last `snapToOffsets` offset.
+
+The default value is true.
+
+| Type    | Required |
+| ------- | -------- |
+| boolean | No       |
 
 ---
 
